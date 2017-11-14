@@ -1,0 +1,64 @@
+{
+  "name": "culebra-stalker",
+  "version": "1.0.0",
+  "description": "Web application to follow up the money you have borrow to friends, family or coworkers.",
+  "main": "dist/server.js",
+  "scripts": {
+    "env:dev": "cross-env NODE_ENV=development",
+    "env:prod": "cross-env NODE_ENV=production",
+    "serve:dev": "npm run build:dev && node build/server.js",
+    "serve:prod": "npm run build:prod && node build/server.js",
+    "build:dev": "npm run env:dev -- npm run build",
+    "build:prod": "npm run env:prod -- npm run build",
+    "build": "npm run build:client && npm run build:server",
+    "prebuild": "npm run build:clean && npm run build:copy",
+    "build:clean": "rm -rf build",
+    "build:copy": "copyfiles assets/* assets/**/* build/",
+    "build:client": "webpack",
+    "build:server": "copyfiles -u 2 src/server/* src/server/**/* build/",
+    "start": "echo \"Error: no start script specified\" && exit 1",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/watson28/culebra-stalker.git"
+  },
+  "keywords": [
+    "React",
+    "Nodejs",
+    "Express"
+  ],
+  "author": "Jorge Florian",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/watson28/culebra-stalker/issues"
+  },
+  "homepage": "https://github.com/watson28/culebra-stalker#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "express-handlebars": "^3.0.0",
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1",
+    "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.2",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.10",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-1": "^6.24.1",
+    "copyfiles": "^1.2.0",
+    "cross-env": "^5.1.1",
+    "eslint": "^4.11.0",
+    "eslint-plugin-react": "^7.4.0",
+    "expose-loader": "^0.7.3",
+    "nodemon": "^1.12.1",
+    "webpack": "^3.8.1"
+  }
+}
