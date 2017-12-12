@@ -1,28 +1,49 @@
 const path = require('path');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const webpack = require('webpack');
 const sourceDir = 'src';
 const sourcePath = path.join(process.cwd(), sourceDir);
 const clientPath = path.join(sourcePath, 'client');
 const clientEntryPath = path.join(clientPath, 'client.js');
+const styleEntryPath = path.join(clientPath, 'styles.scss');
 const outputPath = path.join(process.cwd(), 'build/assets');
 
 const webpackConfig = {
     context: __dirname,
-    entry: clientEntryPath,
+    entry: [clientEntryPath, styleEntryPath],
     output: {
         path: outputPath,
         filename: 'app.js'
     },
     module: {
         loaders: [
-            //{ test: /\.html$/, loader: 'html' },
             {
                 test: /\.js$/,
                 exclude: /(node_modules)/,
                 loader: 'babel-loader'
             },
-            { test: require.resolve("react"), loader: "expose-loader?React" }
+            { test: require.resolve("react"), loader: "expose-loader?React" },
+            {
+                test: /\.(scss)$/,
+                loader: ExtractTextPlugin.extract(['css-loader', 'sass-loader'])
+            },
         ]
     },
+    plugins: [
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery',
+            'window.jQuery': 'jquery',
+            Popper: ['popper.js', 'default'],
+            // In case you imported plugins individually, you must also require them here:
+            Util: "exports-loader?Util!bootstrap/js/dist/util",
+            Dropdown: "exports-loader?Dropdown!bootstrap/js/dist/dropdown",
+            Tether: "exports-loader?Tether!tether/dist/js/tether",
+        }),
+        new ExtractTextPlugin({
+            filename: 'styles.css'
+        }),
+    ],
     resolve: { modules: [clientPath, "node_modules"] }
 };
 
