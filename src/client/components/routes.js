@@ -1,9 +1,9 @@
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 import { PureComponent } from 'react';
-import LoginPage from 'components/loginPage';
-import RegisterPage from 'components/registerPage';
+import LoginPage from 'components/login-page';
+import RegisterPage from 'components/register-page';
 
-export default class Routes extends PureComponent {
+class Routes extends PureComponent {
     render () {
         return (
             <div>
@@ -14,3 +14,5 @@ export default class Routes extends PureComponent {
         );
     }
 }
+
+export default withRouter(Routes);

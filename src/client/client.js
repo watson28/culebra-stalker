@@ -14,7 +14,7 @@ import 'libs/material-dashboard.exec';
 
 import Layout from 'components/layout';
 
-import { HashRouter as Router } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 import Routes from 'components/routes';
 
 const store = createStore(reducer, null, applyMiddleware(thunk));
