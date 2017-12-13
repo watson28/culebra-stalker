@@ -5,7 +5,7 @@ const sourceDir = 'src';
 const sourcePath = path.join(process.cwd(), sourceDir);
 const clientPath = path.join(sourcePath, 'client');
 const clientEntryPath = path.join(clientPath, 'client.js');
-const styleEntryPath = path.join(clientPath, 'styles.scss');
+const styleEntryPath = path.join(clientPath, '/styles/main.scss');
 const outputPath = path.join(process.cwd(), 'build/assets');
 
 const webpackConfig = {
@@ -27,10 +27,14 @@ const webpackConfig = {
                 test: /\.(scss)$/,
                 loader: ExtractTextPlugin.extract(['css-loader', 'sass-loader'])
             },
+            {
+                test: /\.exec\.js$/,
+                use: ['script-loader']
+            }
         ]
     },
     plugins: [
-        new webpack.ProvidePlugin({
+        /*new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery',
             'window.jQuery': 'jquery',
@@ -39,7 +43,7 @@ const webpackConfig = {
             Util: "exports-loader?Util!bootstrap/js/dist/util",
             Dropdown: "exports-loader?Dropdown!bootstrap/js/dist/dropdown",
             Tether: "exports-loader?Tether!tether/dist/js/tether",
-        }),
+        }),*/
         new ExtractTextPlugin({
             filename: 'styles.css'
         }),

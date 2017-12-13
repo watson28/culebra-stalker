@@ -35,8 +35,6 @@
   },
   "homepage": "https://github.com/watson28/culebra-stalker#readme",
   "dependencies": {
-    "bootstrap": "^4.0.0-alpha.6",
-    "reactstrap": "^4.8.0",
     "express": "^4.16.2",
     "express-handlebars": "^3.0.0",
     "react": "^16.1.1",
@@ -45,8 +43,7 @@
     "react-router-dom": "^4.2.2",
     "react-transition-group": "^2.2.1",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0",
-    "tether": "^1.4.3"
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -68,6 +65,7 @@
     "nodemon": "^1.12.1",
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.6",
+    "script-loader": "^0.7.2",
     "webpack": "^3.8.1"
   }
 }

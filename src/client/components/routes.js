@@ -1,9 +1,16 @@
-import React from 'react';
-import {Route, IndexRoute} from 'react-router';
-import IndexPage from 'components/index.js';
+import { Route } from 'react-router-dom';
+import { PureComponent } from 'react';
+import LoginPage from 'components/loginPage';
+import RegisterPage from 'components/registerPage';
 
-export default (
-    <Route path="/">
-        <IndexRoute component={IndexPage} />
-    </Route>
-);
+export default class Routes extends PureComponent {
+    render () {
+        return (
+            <div>
+                <Route exact path="/" component={RegisterPage}/>
+                <Route path="/login" component={LoginPage}/>
+                <Route path="/register" component={RegisterPage}/>
+            </div>
+        );
+    }
+}
