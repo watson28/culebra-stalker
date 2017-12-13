@@ -10,7 +10,7 @@ export default class LoginPage extends PureComponent {
                     <div className="card-header" data-background-color="purple">
                         <h4 className="title">Login</h4>
                         <p className="category">
-                            Don't have an account? <Link to="/register">create new account</Link>
+                            Dont have an account? <Link to="/register">create new account</Link>
                         </p>
                     </div>
                     <div className="card-content">
