@@ -1,5 +1,7 @@
 import { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
+import FormValidator from 'components/form-validation/form-validator';
+import InputValidator from 'components/form-validation/input-validator';
 
 export default class registerPage extends PureComponent {
     render() {
@@ -14,12 +16,12 @@ export default class registerPage extends PureComponent {
                             </p>
                         </div>
                         <div className="card-content">
-                            <form>
+                            <FormValidator onValidFormSubmit={() => { alert("good!!") }}>
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="form-group label-floating">
                                             <label className="control-label">Name</label>
-                                            <input type="text" className="form-control" />
+                                            <InputValidator type="text" name="name" className="form-control" validations={['required']} />
                                         </div>
                                     </div>
                                 </div>
@@ -27,7 +29,7 @@ export default class registerPage extends PureComponent {
                                     <div className="col-md-12">
                                         <div className="form-group label-floating">
                                             <label className="control-label">Email</label>
-                                            <input type="email" className="form-control" />
+                                            <InputValidator type="email" name="email" className="form-control" validations={['required', 'email']} />
                                         </div>
                                     </div>
                                 </div>
@@ -35,7 +37,7 @@ export default class registerPage extends PureComponent {
                                     <div className="col-md-12">
                                         <div className="form-group label-floating">
                                             <label className="control-label">Password</label>
-                                            <input type="password" className="form-control" />
+                                            <InputValidator type="email" name="password" className="form-control" validations={['required']} />
                                         </div>
                                     </div>
                                 </div>
@@ -52,7 +54,7 @@ export default class registerPage extends PureComponent {
                                     <div className="ripple-container"></div>
                                 </button>
                                 <div className="clearfix"></div>
-                            </form>
+                            </FormValidator>
                         </div>
                     </div>
                 </div>

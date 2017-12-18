@@ -1,13 +1,14 @@
 import Input from 'react-validation/build/input';
-import { PureComponent } from 'react';
+import { PureComponent, Component } from 'react';
 import _ from 'lodash';
 import * as validators from 'validators';
 
-class InputValidator extends PureComponent {
+// TODO figure out way to transform component to Pure. having it as a PureComponent, make react-validation not working
+class InputValidator extends Component {
 
     render () {
         let newProps = _.extend({}, this.props, {
-            validations: []//this.transformValidations(this.props.validations)
+            validations: this.transformValidations(this.props.validations)
         });
         return <Input {...newProps} />;
     }

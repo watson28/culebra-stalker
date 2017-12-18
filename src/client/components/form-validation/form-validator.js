@@ -14,13 +14,14 @@ class FormValidator extends PureComponent {
         let props = this.props;
 
         event.preventDefault();
-        var isValid = this.form.getChildContext()._errors.length === 0;
+        this.form.validateAll();
+        let isValid = this.form.getChildContext()._errors.length === 0;
         
         if (isValid) {
-            props.onValidFormSubmit && props.onValidFormSubmit.call(this.form.values());
+            props.onValidFormSubmit && props.onValidFormSubmit.call(this.form.getValues());
         } else {
             let errors = {};
-            props.onInvalidFormSubmit && props.onInvalidFormSubmit.call(errors, this.form.values);
+            props.onInvalidFormSubmit && props.onInvalidFormSubmit.call(errors, this.form.getValues());
         }
     }
 
