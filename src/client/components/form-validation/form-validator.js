@@ -18,7 +18,7 @@ class FormValidator extends PureComponent {
         let isValid = this.form.getChildContext()._errors.length === 0;
         
         if (isValid) {
-            props.onValidFormSubmit && props.onValidFormSubmit.call(this.form.getValues());
+            props.onValidFormSubmit && props.onValidFormSubmit(this.form.getValues());
         } else {
             let errors = {};
             props.onInvalidFormSubmit && props.onInvalidFormSubmit.call(errors, this.form.getValues());
@@ -34,7 +34,7 @@ class FormValidator extends PureComponent {
     }
 }
 
-FormValidator.PropTypes = {
+FormValidator.propTypes = {
     onValidFormSubmit: PropTypes.func,
     onInvalidFormSubmit: PropTypes.func
 };

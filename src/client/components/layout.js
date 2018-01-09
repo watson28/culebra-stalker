@@ -1,4 +1,5 @@
 import { PureComponent } from 'react';
+import Notifications from 'components/notifications';
 
 export default class Layout extends PureComponent {
     render() {
@@ -7,6 +8,7 @@ export default class Layout extends PureComponent {
                 <div className="main-panel">
                     <div className="content">
                         <div className="container-fluid">
+                        <Notifications />
                          {this.props.children}
                         </div>
                     </div>

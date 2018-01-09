@@ -4,10 +4,17 @@ services:
   web_api:
     image: node
     environment: 
-      - NODE_ENV=development
+      - NODE_ENV
+      - PORT
+      - MONGODB_URI
+      - JWT_SECRET
     ports: 
-      - '3000:3000'
+      - '${PORT}:${PORT}'
     volumes:
       - .:/home/node/app
     working_dir: /home/node/app
+    depends_on:
+      - "db"
     command: "yarn run start"
+  db:
+    image: mongo

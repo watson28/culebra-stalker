@@ -10,7 +10,7 @@ const outputPath = path.join(process.cwd(), 'build/assets');
 
 const webpackConfig = {
     context: __dirname,
-    entry: [clientEntryPath, styleEntryPath],
+    entry: ['babel-polyfill', clientEntryPath, styleEntryPath],
     output: {
         path: outputPath,
         filename: 'app.js'

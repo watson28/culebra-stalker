@@ -41,7 +41,7 @@ export default class registerPage extends PureComponent {
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" className="btn btn-primary pull-right btn-block">
+                                <button type="submit" className="btn btn-primary btn-block">
                                     Create Account
                                 </button>
                                 <hr />

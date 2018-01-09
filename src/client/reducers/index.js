@@ -1,5 +1,8 @@
-const INITIAL_STATE = {};
+import { combineReducers } from 'redux';
+import user from './user-reducer';
+import notifications from './notifications-reducer';
 
-export default (state = INITIAL_STATE, action) => {
-    return state;
-};
+export default combineReducers({
+    user,
+    notifications
+});
