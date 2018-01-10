@@ -10,11 +10,11 @@ export default (state = INITIAL_STATE, action) => {
 
     switch (action.type) {
         case ADD_NOTIFICATIONS:
-            return action.payload.notifications.concat(state);
+            return _.unionBy(action.payload.notifications, state, (item) => item.message);
         case CLEAR_NOTIFICATION:
             return [
-                ...state.slice(0, action.index),
-                ...state.slice(action.index + 1)
+                ...state.slice(0, action.payload.index),
+                ...state.slice(action.payload.index + 1)
             ];
         case CLEAR_ALL_NOTIFICATIONS:
             return [];

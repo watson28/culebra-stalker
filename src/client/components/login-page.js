@@ -27,8 +27,8 @@ class LoginPage extends PureComponent {
 
     renderDefault() {
         return (
-            <div className="row justify-content-center">
-                <div className="col-md-4">
+            <div className="row">
+                <div className="col-md-offset-4 col-md-4">
                     <div className="card">
                         <div className="card-header" data-background-color="purple">
                             <h4 className="title">Login</h4>

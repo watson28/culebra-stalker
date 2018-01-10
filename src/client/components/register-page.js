@@ -6,8 +6,8 @@ import InputValidator from 'components/form-validation/input-validator';
 export default class registerPage extends PureComponent {
     render() {
         return (
-            <div className="row justify-content-center">
-                <div className="col-md-4">
+            <div className="row">
+                <div className="col-md-offset-4 col-md-4">
                     <div className="card">
                         <div className="card-header" data-background-color="purple">
                             <h4 className="title">Register</h4>

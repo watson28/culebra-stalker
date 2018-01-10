@@ -1,14 +1,14 @@
-import { PureComponent, Component } from 'react';
+import { PureComponent } from 'react';
 import messages from 'messages';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { closeNotification } from 'actions/notification-actions';
 
-// TODO: check how to make this pure
-class Notifications extends Component {
+class Notifications extends PureComponent {
 
     constructor(props) {
         super(props);
-        
+
         this.renderSingleNotification = this.renderSingleNotification.bind(this);
         this.mapType = this.mapType.bind(this);
     }
@@ -17,15 +17,16 @@ class Notifications extends Component {
         return (
             <div className="row">
                 <div className="col-md-12">
-                {this.props.notifications.map(this.renderSingleNotification)}
+                    {this.props.notifications.map(this.renderSingleNotification)}
                 </div>
             </div>
         );
     }
 
-    renderSingleNotification({type, message}, index) {
+    renderSingleNotification({ type, message }, index) {
         return (
             <div className={"alert alert-" + this.mapType(type)} key={index}>
+                <button {... this.getCloseButtonProps(index) }>×</button>
                 <span>{messages[message]}</span>
             </div>
         );
@@ -40,6 +41,15 @@ class Notifications extends Component {
 
         return map[type] || 'primary';
     }
+
+    getCloseButtonProps(index) {
+        return {
+            type: 'button',
+            'aria-hidden': 'true',
+            className: 'close',
+            onClick: () => this.props.closeNotification(index)
+        };
+    }
 }
 
 Notifications.propTypes = {
@@ -47,5 +57,6 @@ Notifications.propTypes = {
 };
 
 export default connect(
-    (state) => ({ notifications: state.notifications})
+    (state) => ({ notifications: state.notifications }),
+    { closeNotification }
 )(Notifications)
