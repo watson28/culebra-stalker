@@ -1,4 +1,4 @@
-# culebra-stalker
+# culebra-stalker (work in progress)
 Web application to follow up the money you have borrow to friends, family or coworkers.
 
 ## Technologies involved
@@ -31,5 +31,5 @@ docker-compose up
 
 execute npm script on running container
 ```
-docker-compose exec web_api yarn run build:client
+docker-compose exec web_api yarn run [my-yarn-command]
 ```
