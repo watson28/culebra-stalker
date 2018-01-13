@@ -2,8 +2,8 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import store from 'store';
 
-import 'libs/jquery-3.2.1.min.exec';
-import 'libs/bootstrap.min';
+import 'jquery';
+import 'bootstrap';
 import 'libs/material.min.exec';
 import 'libs/arrive.min.exec';
 import 'libs/perfect-scrollbar.jquery.min.exec';

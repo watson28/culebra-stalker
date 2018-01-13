@@ -1,6 +1,5 @@
 const path = require('path');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const webpack = require('webpack');
 const sourceDir = 'src';
 const sourcePath = path.join(process.cwd(), sourceDir);
 const clientPath = path.join(sourcePath, 'client');
@@ -17,33 +16,20 @@ const webpackConfig = {
     },
     module: {
         loaders: [
-            {
-                test: /\.js$/,
-                exclude: /(node_modules)/,
-                loader: 'babel-loader'
-            },
-            { test: require.resolve("react"), loader: "expose-loader?React" },
+            { test: /\.js$/, loader: 'babel-loader', exclude: /(node_modules)/ },
+            { test: require.resolve('react'), loader: 'expose-loader?React' },
+            { test: require.resolve('jquery'), loader: 'expose-loader?$!expose-loader?jQuery' },
+            { test: /\.exec\.js$/, loader: ['script-loader'] },
             {
                 test: /\.(scss)$/,
-                loader: ExtractTextPlugin.extract(['css-loader', 'sass-loader'])
-            },
-            {
-                test: /\.exec\.js$/,
-                use: ['script-loader']
+                loader: ExtractTextPlugin.extract([
+                    { loader: 'css-loader', options: { url: false } },
+                    { loader: 'sass-loader' }
+                ])
             }
         ]
     },
     plugins: [
-        /*new webpack.ProvidePlugin({
-            $: 'jquery',
-            jQuery: 'jquery',
-            'window.jQuery': 'jquery',
-            Popper: ['popper.js', 'default'],
-            // In case you imported plugins individually, you must also require them here:
-            Util: "exports-loader?Util!bootstrap/js/dist/util",
-            Dropdown: "exports-loader?Dropdown!bootstrap/js/dist/dropdown",
-            Tether: "exports-loader?Tether!tether/dist/js/tether",
-        }),*/
         new ExtractTextPlugin({
             filename: 'styles.css'
         }),

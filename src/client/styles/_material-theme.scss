@@ -1,0 +1,53 @@
+/*!
+
+ =========================================================
+ * Material Dashboard - v1.2.0
+ =========================================================
+
+ * Product Page: http://www.creative-tim.com/product/material-dashboard
+ * Copyright 2017 Creative Tim (http://www.creative-tim.com)
+ * Licensed under MIT (https://github.com/creativetimofficial/material-dashboard/blob/master/LICENSE.material-theme)
+
+ =========================================================
+
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+ */
+
+
+//variables and mixins
+@import "material-theme/variables";
+@import "material-theme/mixins";
+@import "material-theme/shadows";
+
+//plugin css
+@import "material-theme/plugins/_plugin-nouislider";
+@import "material-theme/plugins/_animate";
+@import "material-theme/plugins/_perfect-scrollbar";
+
+// Core CSS
+@import "material-theme/typography";
+@import "material-theme/sidebar-and-main-panel";
+@import "material-theme/buttons";
+@import "material-theme/misc";
+@import "material-theme/inputs";
+@import "material-theme/forms";
+@import "material-theme/alerts";
+@import "material-theme/tables";
+@import "material-theme/checkboxes";
+@import "material-theme/radios";
+@import "material-theme/togglebutton";
+@import "material-theme/ripples";
+@import "material-theme/pagination";
+@import "material-theme/pills";
+@import "material-theme/dialogs";
+@import "material-theme/navbars";
+@import "material-theme/popups";
+@import "material-theme/footers";
+
+// Fancy Stuff
+@import "material-theme/dropdown";
+@import "material-theme/cards";
+@import "material-theme/tabs";
+@import "material-theme/chartist";
+@import "material-theme/responsive";
