@@ -31,7 +31,7 @@ class LoginPage extends PureComponent {
                 <div className="col-md-offset-4 col-md-4">
                     <div className="card">
                         <div className="card-header" data-background-color="purple">
-                            <h4 className="title">Login</h4>
+                            <h4 className="title">Login jajafgff hhh</h4>
                             <p className="category">
                                 Dont have an account? <Link to="/register">create new account</Link>
                             </p>

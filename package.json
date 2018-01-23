@@ -4,14 +4,17 @@
   "description": "Web application to follow up the money you have borrow to friends, family or coworkers.",
   "main": "dist/server.js",
   "scripts": {
-    "serve": "yarn run build && node build/server.js",
-    "build": "yarn run build:client && yarn run build:server",
-    "prebuild": "yarn run build:clean && yarn run build:copy",
+    "watch": "run-p watch:client watch:server",
+    "watch:client": "onchange 'src/client/**/*.js' -- yarn run build:client",
+    "watch:server": "onchange 'src/server/**/*.js' -- yarn run build:server",
+    "serve": "node build/server.js",
+    "build": "run-s build:client build:server",
+    "prebuild": "run-s build:clean build:copy",
     "build:clean": "rm -rf build",
     "build:copy": "copyfiles assets/* assets/**/* build/",
     "build:client": "webpack",
     "build:server": "copyfiles -u 2 src/server/* src/server/**/* build/",
-    "start": "yarn run serve",
+    "start": "yarn run build && run-p watch serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -72,6 +75,8 @@
     "extract-text-webpack-plugin": "^3.0.2",
     "node-sass": "^4.7.2",
     "nodemon": "^1.12.1",
+    "npm-run-all": "^4.1.2",
+    "onchange": "^3.3.0",
     "sass-loader": "^6.0.6",
     "script-loader": "^0.7.2",
     "webpack": "^3.8.1"
