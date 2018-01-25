@@ -5,7 +5,8 @@ import FormValidator from 'components/form-validation/form-validator';
 import InputValidator from 'components/form-validation/input-validator';
 import { connect } from 'react-redux';
 import { login } from 'actions/user-actions';
-import { Redirect } from 'react-router';
+import RedirectOnLoggedIn from 'components/redirect-on-logged-in';
+import Card from 'components/presentation/card';
 
 class LoginPage extends PureComponent {
 
@@ -13,51 +14,34 @@ class LoginPage extends PureComponent {
         super(props);
 
         this.onValidFormSubmit = this.onValidFormSubmit.bind(this);
-        this.renderRedirect = this.renderRedirect.bind(this);
-        this.renderDefault = this.renderDefault.bind(this);
+        this.getButtonSubmitProps = this.getButtonSubmitProps.bind(this);
     }
 
     render() {
-        return (this.props.isLoggedIn) ? this.renderRedirect() : this.renderDefault();
-    }
-
-    renderRedirect() {
-        return <Redirect to="/dashboard" />
-    }
-
-    renderDefault() {
         return (
             <div className="row">
                 <div className="col-md-offset-4 col-md-4">
-                    <div className="card">
-                        <div className="card-header" data-background-color="purple">
-                            <h4 className="title">Login jajafgff hhh</h4>
-                            <p className="category">
-                                Dont have an account? <Link to="/register">create new account</Link>
-                            </p>
-                        </div>
-                        <div className="card-content">
-                            <FormValidator onValidFormSubmit={this.onValidFormSubmit}>
-                                <div className="row">
-                                    <div className="col-md-12">
-                                        <div className="form-group label-floating">
-                                            <label className="control-label">Email</label>
-                                            <InputValidator type="email" name="email" className="form-control" validations={['required', 'email']} />
-                                        </div>
+                    <Card {...this.getCardProps()}>
+                        <FormValidator onValidFormSubmit={this.onValidFormSubmit}>
+                            <div className="row">
+                                <div className="col-md-12">
+                                    <div className="form-group label-floating">
+                                        <label className="control-label">Email</label>
+                                        <InputValidator type="email" name="email" className="form-control" validations={['required', 'email']} />
                                     </div>
                                 </div>
-                                <div className="row">
-                                    <div className="col-md-12">
-                                        <div className="form-group label-floating">
-                                            <label className="control-label">Password</label>
-                                            <InputValidator type="password" name="password" className="form-control" validations={['required']} />
-                                        </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-md-12">
+                                    <div className="form-group label-floating">
+                                        <label className="control-label">Password</label>
+                                        <InputValidator type="password" name="password" className="form-control" validations={['required']} />
                                     </div>
                                 </div>
-                                <button {... this.getButtonSubmitProps()} />
-                            </FormValidator>
-                        </div>
-                    </div>
+                            </div>
+                            <button {... this.getButtonSubmitProps() } />
+                        </FormValidator>
+                    </Card>
                 </div>
             </div>
         );
@@ -67,24 +51,32 @@ class LoginPage extends PureComponent {
         this.props.login(data.email, data.password);
     }
 
+    getCardProps() {
+        return {
+            title: 'Login',
+            subContent: <span>Dont have an account? <Link to="/register">create new account</Link></span>
+        };
+
+    }
+
     getButtonSubmitProps() {
         return {
             type: 'submit',
             className: 'btn btn-primary btn-block',
-            disabled: this.props.logginUser,
-            children: (!this.props.logginUser) ? 'Login' : 'Working on it ...'
+            disabled: this.props.loggingUser,
+            children: (!this.props.loggingUser) ? 'Login' : 'Working on it ...'
         };
     }
 }
 
 LoginPage.propTypes = {
-    location: PropTypes.object.required,
-    logginUser: PropTypes.bool,
-    isLoggedIn: PropTypes.bool,
+    loggingUser: PropTypes.bool,
     login: PropTypes.func.isRequired
 };
 
-export default connect(
-    (state) => ({ logginUser: state.user.logginUser, isLoggedIn: state.user.userInfo }),
+const ConnectedLoginPage = connect(
+    (state) => ({ loggingUser: state.user.loggingUser }),
     { login }
-)(LoginPage)
+)(LoginPage);
+
+export default RedirectOnLoggedIn(ConnectedLoginPage, '/dashboard');
