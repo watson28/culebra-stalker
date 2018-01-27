@@ -1,9 +1,7 @@
-const APIServices = [
-    require('./user-services')
-];
+const userServices = require('./user-services');
+const culebraServices = require('./culebra-services');
 
 module.exports = (app) => {
-    APIServices.forEach((service) => {
-        service(app)
-    });
+    app.use('/api/users', userServices);
+    app.use('/api/culebras', culebraServices);
 }
