@@ -1,62 +1,86 @@
 import { PureComponent } from 'react';
 import Card from 'components/presentation/card';
+import { callService } from 'libs/service-caller';
+import moment from 'moment';
 
 export default class DashboardPage extends PureComponent {
 
+    constructor(props) {
+        super(props);
+
+        this.renderLoading = this.renderLoading.bind(this);
+        this.renderCulebraList = this.renderCulebraList.bind(this);
+        this.renderCulebraItem = this.renderCulebraItem.bind(this);
+
+        this.state = {
+            fetching: false,
+            culebras: [],
+            error: null
+        };
+    }
+
+    async componentDidMount() {
+        this.setState({ fetching: true });
+        try {
+            const { result } = await this.callCulebraListService();
+            this.setState({ culebras: result.data, fetching: false });
+        } catch (error) {
+            this.setState({ error, fetching: false });
+        }
+    }
+
     render() {
+        const content = (this.state.fetching) ? this.renderLoading() : this.renderCulebraList();
         return (
             <div className="row">
                 <div className="col-md-12">
-                    <Card title="Culebras">
-                        <table class="table">
-                            <thead class="text-primary">
-                                <tr><th>Name</th>
-                                    <th>Country</th>
-                                    <th>City</th>
-                                    <th>Salary</th>
-                                </tr></thead>
-                            <tbody>
-                                <tr>
-                                    <td>Dakota Rice</td>
-                                    <td>Niger</td>
-                                    <td>Oud-Turnhout</td>
-                                    <td class="text-primary">$36,738</td>
-                                </tr>
-                                <tr>
-                                    <td>Minerva Hooper</td>
-                                    <td>Curaçao</td>
-                                    <td>Sinaai-Waas</td>
-                                    <td class="text-primary">$23,789</td>
-                                </tr>
-                                <tr>
-                                    <td>Sage Rodriguez</td>
-                                    <td>Netherlands</td>
-                                    <td>Baileux</td>
-                                    <td class="text-primary">$56,142</td>
-                                </tr>
-                                <tr>
-                                    <td>Philip Chaney</td>
-                                    <td>Korea, South</td>
-                                    <td>Overland Park</td>
-                                    <td class="text-primary">$38,735</td>
-                                </tr>
-                                <tr>
-                                    <td>Doris Greene</td>
-                                    <td>Malawi</td>
-                                    <td>Feldkirchen in Kärnten</td>
-                                    <td class="text-primary">$63,542</td>
-                                </tr>
-                                <tr>
-                                    <td>Mason Porter</td>
-                                    <td>Chile</td>
-                                    <td>Gloucester</td>
-                                    <td class="text-primary">$78,615</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </Card>
+                    <Card title="Culebras">{content}</Card>
                 </div>
             </div>
         );
+    }
+
+    renderLoading() {
+        return <div>Feching Culebras ...</div>;
+    }
+
+    renderCulebraList() {
+        return (
+            <table class="table">
+                <thead class="text-primary">
+                    <tr><th>Name</th>
+                        <th>Email</th>
+                        <th>Cellphone</th>
+                        <th>Amount Due</th>
+                        <th>Loan Date</th>
+                        <th>Notification days</th>
+                    </tr></thead>
+                <tbody>
+                    {this.state.culebras.map(this.renderCulebraItem)}
+                </tbody>
+            </table>
+        );
+    }
+
+    renderCulebraItem(culebra, index) {
+        return (
+            <tr key={index}>
+                <td>{culebra.name}</td>
+                <td>{culebra.email}</td>
+                <td>{this.formatPhoneNumber(culebra.cellphone)}</td>
+                <td class="text-primary">{`$ ${culebra.amountDue.toFixed(2)}`}</td>
+                <td>{moment(culebra.loanDate).format('MMMM Do YYYY')}</td>
+                <td>{culebra.notificationDays}</td>
+            </tr>
+        );
+    }
+
+    formatPhoneNumber (phoneNumber) {
+        return `${phoneNumber.slice(0, 3)}-${phoneNumber.slice(3, 6)}-${phoneNumber.slice(6)}`;
+    }
+
+    callCulebraListService() {
+        const URL = 'api/culebras';
+        return callService(URL);
     }
 }

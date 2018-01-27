@@ -4,6 +4,7 @@ const { User } = require('../models/user');
 const ExpressRouter = require('express-promise-router');
 
 const PUBLIC_USER_ATTRS = ['_id,', 'name', 'email'];
+const sanitazeModel = (model) => _.pick(model, PUBLIC_USER_ATTRS);
 const router = ExpressRouter();
 
 router.post('/', async (req, res) => {
@@ -11,9 +12,9 @@ router.post('/', async (req, res) => {
         const body = _.pick(req.body, ['name', 'email', 'password']);
         const user = new User(body);
         await user.save();
-        const token = await user.generateAuthToken();
-        res.header('x-auth', token)
-        .setResultData(_.pick(user, PUBLIC_USER_ATTRS))
+        const authToken = await user.generateAuthToken();
+        res.header('x-auth', authToken)
+        .setResultData(Object.assign({}, sanitazeModel(user), {authToken}))
         .sendStandard();
     } catch (e) {
         res.status(400).send(e);
@@ -30,9 +31,9 @@ router.post('/login', async (req, res) => {
         .setResultCode('INVALID_CREDENTIALS')
         .sendStandard();
     } else {
-        const token = await user.generateAuthToken();
-        res.header('x-auth', token)
-        .setResultData(_.pick(user, PUBLIC_USER_ATTRS))
+        const authToken = await user.generateAuthToken();
+        res.header('x-auth', authToken)
+        .setResultData(Object.assign({}, sanitazeModel(user), {authToken}))
         .sendStandard();
     }
 });

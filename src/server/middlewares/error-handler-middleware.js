@@ -25,6 +25,8 @@ const handleValidationError = (err, req, res) => {
 };
 
 const handleGeneralError = (err, req, res) => {
+    console.error(err);
+    
     res.status(err.status || HTTP_SERVER_ERROR)
     .setResultCode('UNHANDLED_ERROR')
     .setResultData(err)

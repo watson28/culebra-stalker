@@ -1,3 +1,4 @@
 {
-    "INVALID_CREDENTIALS_MSG": "Invalid email/password entered"
+    "INVALID_CREDENTIALS_MSG": "Invalid email/password entered",
+    "UNHANDLED_ERROR_MSG": "Oppps.... something went wrong on your action. Please contact us"
 }

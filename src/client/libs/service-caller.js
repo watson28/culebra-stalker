@@ -5,11 +5,22 @@ const defaultOptions = {
     headers: {}
 };
 
+const getHeaders = customHeaders => {
+    const defaultHeaders = { 'Content-Type': 'application/json' };
+    const userInfo = store.getState().user.userInfo;
+    
+    if (userInfo) {
+        defaultHeaders['Authorization'] = `Bearer ${userInfo.authToken}`;
+    }
+
+    return {...defaultHeaders, ...customHeaders};
+};
+
 export const callService = async (url, data, options = {}) => {
     const finalOptions = {...defaultOptions, ...options};
     const body = JSON.stringify(data);
-    const defaultHeaders = { 'Content-Type': 'application/json' };
-    const headers = { ...defaultHeaders, ...finalOptions.headers };
+    
+    const headers = getHeaders(finalOptions.headers);
 
     const response = await fetch(url, { method: finalOptions.method, headers, body });
     const responseData = await response.json();
