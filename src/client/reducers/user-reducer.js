@@ -8,9 +8,7 @@ export const FETCH_LOGIN = 'FETCH_LOGIN';
 export const FETCH_LOGIN_SUCCESS = 'FETCH_LOGIN_SUCESS';
 export const FETCH_LOGIN_FAIL = 'FETCH_LOGIN_FAIL';
 
-export const FETCH_LOGOUT = 'FETCH_LOGOUT';
-export const FETCH_LOGOUT_SUCESS = 'FETCH_LOGOUT_SUCESS';
-export const FETCH_LOGOUT_FAIL = 'FETCH_LOGOUT_SUCESS';
+export const LOGOUT = 'LOGOUT';
 
 export const FETCH_SIGNUP = 'SIGNUP';
 export const FETCH_SIGNUP_SUCCESS = 'FETCH_SIGNUP_SUCCESS';
@@ -31,6 +29,9 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, userInfo: action.payload.userInfo, signingUp: false};
         case FETCH_SIGNUP_FAIL:
             return {...state, userInfo: null, signingUp: false};
+
+        case LOGOUT:
+            return {...state, userInfo: null};        
     }
     
     return state;

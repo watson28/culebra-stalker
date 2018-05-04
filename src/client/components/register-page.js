@@ -4,7 +4,7 @@ import FormValidator from 'components/form-validation/form-validator';
 import InputValidator from 'components/form-validation/input-validator';
 import { connect } from 'react-redux';
 import { signup } from 'actions/user-actions';
-import RedirectOnLoggedIn from 'components/redirect-on-logged-in';
+import RedirectOnSessionChanges from 'components/redirect-on-session-changes';
 import Card from 'components/presentation/card';
 
 class SignUpPage extends PureComponent {
@@ -82,4 +82,4 @@ class SignUpPage extends PureComponent {
 
 const ConnectedSignUpPage = connect(state => ({ signingUp: state.user.signingUp }), { signup })(SignUpPage);
 
-export default RedirectOnLoggedIn(ConnectedSignUpPage, '/dashboard');
+export default RedirectOnSessionChanges(ConnectedSignUpPage, {redirectTo: '/dashboard', redirectOnLogin: true});

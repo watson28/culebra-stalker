@@ -2,8 +2,9 @@ import { PureComponent } from 'react';
 import Card from 'components/presentation/card';
 import { callService } from 'libs/service-caller';
 import moment from 'moment';
+import RedirectOnSessionChanges from 'components/redirect-on-session-changes';
 
-export default class DashboardPage extends PureComponent {
+class DashboardPage extends PureComponent {
 
     constructor(props) {
         super(props);
@@ -14,18 +15,18 @@ export default class DashboardPage extends PureComponent {
 
         this.state = {
             fetching: false,
-            culebras: [],
-            error: null
+            culebras: []
         };
     }
 
     async componentDidMount() {
         this.setState({ fetching: true });
-        try {
+       
+        const { result } = await this.callCulebraListService();
+
+        if (result.code == 'OK') {
             const { result } = await this.callCulebraListService();
             this.setState({ culebras: result.data, fetching: false });
-        } catch (error) {
-            this.setState({ error, fetching: false });
         }
     }
 
@@ -46,8 +47,8 @@ export default class DashboardPage extends PureComponent {
 
     renderCulebraList() {
         return (
-            <table class="table">
-                <thead class="text-primary">
+            <table className="table">
+                <thead className="text-primary">
                     <tr><th>Name</th>
                         <th>Email</th>
                         <th>Cellphone</th>
@@ -68,7 +69,7 @@ export default class DashboardPage extends PureComponent {
                 <td>{culebra.name}</td>
                 <td>{culebra.email}</td>
                 <td>{this.formatPhoneNumber(culebra.cellphone)}</td>
-                <td class="text-primary">{`$ ${culebra.amountDue.toFixed(2)}`}</td>
+                <td className="text-primary">{`$ ${culebra.amountDue.toFixed(2)}`}</td>
                 <td>{moment(culebra.loanDate).format('MMMM Do YYYY')}</td>
                 <td>{culebra.notificationDays}</td>
             </tr>
@@ -84,3 +85,5 @@ export default class DashboardPage extends PureComponent {
         return callService(URL);
     }
 }
+
+export default RedirectOnSessionChanges(DashboardPage, {redirectTo: '/login', redirectOnLogout: true});

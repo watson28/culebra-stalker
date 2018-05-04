@@ -5,7 +5,7 @@ import FormValidator from 'components/form-validation/form-validator';
 import InputValidator from 'components/form-validation/input-validator';
 import { connect } from 'react-redux';
 import { login } from 'actions/user-actions';
-import RedirectOnLoggedIn from 'components/redirect-on-logged-in';
+import RedirectOnSessionChanges from 'components/redirect-on-session-changes';
 import Card from 'components/presentation/card';
 
 class LoginPage extends PureComponent {
@@ -79,4 +79,7 @@ const ConnectedLoginPage = connect(
     { login }
 )(LoginPage);
 
-export default RedirectOnLoggedIn(ConnectedLoginPage, '/dashboard');
+export default RedirectOnSessionChanges(ConnectedLoginPage, {redirectTo: '/dashboard', redirectOnLogin: true});
+
+
+var a = [];

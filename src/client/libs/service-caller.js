@@ -1,4 +1,4 @@
-import store from 'libs/store';
+import { store } from 'libs/store';
 import { ADD_NOTIFICATIONS } from 'reducers/notifications-reducer';
 const defaultOptions = {
     method: 'GET',
@@ -8,18 +8,18 @@ const defaultOptions = {
 const getHeaders = customHeaders => {
     const defaultHeaders = { 'Content-Type': 'application/json' };
     const userInfo = store.getState().user.userInfo;
-    
+
     if (userInfo) {
         defaultHeaders['Authorization'] = `Bearer ${userInfo.authToken}`;
     }
 
-    return {...defaultHeaders, ...customHeaders};
+    return { ...defaultHeaders, ...customHeaders };
 };
 
 export const callService = async (url, data, options = {}) => {
-    const finalOptions = {...defaultOptions, ...options};
+    const finalOptions = { ...defaultOptions, ...options };
     const body = JSON.stringify(data);
-    
+
     const headers = getHeaders(finalOptions.headers);
 
     const response = await fetch(url, { method: finalOptions.method, headers, body });
@@ -32,9 +32,5 @@ export const callService = async (url, data, options = {}) => {
         });
     }
 
-    if (response.ok) {
-        return responseData;
-    } else {
-        throw responseData;
-    }
+    return responseData;
 };
